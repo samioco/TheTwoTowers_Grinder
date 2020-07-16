@@ -1,0 +1,226 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+$Settings= "Tools|Grinder|Settings"
+
+#AL GrinderClear {
+#VAR GrinderQueue {} {} VAR
+#VAR GrinderSet {} {} VAR
+} $CLASS
+
+#AL Grinder {
+MyProfileVars
+RESET_GrinderVariables
+#VAR Grinder {%1} {} VAR
+#VAR GrinderRooms {@{%1}} {} VAR
+#VAR GrinderNoMountRooms {@{%concat(@Grinder,"NoMountRooms")}} {} VAR
+#IF (%2) {#VAR GrinderGoldHolder {%lower(%2)} {} VAR}
+GrinderResetAllRoomSettings
+ActionAdd "ClassOff Grinder;QuestComplete @Grinder"
+ClassOn Grinder
+GrinderPrep
+GrinderNextRoom
+} $CLASS
+
+#AL GrinderPrep {
+MountPrep
+wimpy
+WS
+#IF (@trigger) {trigger off}
+} $CLASS
+
+#AL GrinderAddToMobList {
+$numMobs=1
+$mobType=%lower(%1)
+#IF (%2) {
+  $numMobs=%trim(%replace(%2,"["))
+  $numMobs=%replace($numMobs,"]")
+  $numMobs=%replace($numMobs," ")
+  $numMobs=%number($numMobs)
+}
+#IF ((%isnumber($numMobs)) && ($numMobs>1)) {
+  #LOOP $numMobs,2 {
+    #VAR MobList {%additem(%concat($mobType," ",%i),@MobList)} {} VAR
+  }
+}
+#VAR MobList {%additem($mobType,@MobList)} {} VAR
+#ECHO RoomMobs: @MobList
+} $CLASS
+
+//--- GrinderNextRoom ---//
+#AL GrinderNextRoom {
+GrinderResetAllRoomSettings
+ClassOn Grinder
+$room=%lower(%item(@GrinderRooms,@iRoom))
+#ADD iRoom 1
+#VAR iMob {0} {} VAR
+#VAR MobList {} {} VAR
+#VAR GrinderMobsDead {0} {} VAR
+//Grinder
+#IF (@iRoom>%numitems(@GrinderRooms)) {
+  GrinderEnd
+} {
+  $room=%lower(%item(@GrinderRooms,@iRoom))
+  #VAR CurRoom {$room} {} VAR
+  //GrinderRoomConditions
+  $roomRoomShort=%concat($room,"RoomShort")
+  #ECHO  %concat("GrinderNextRoom: Walking to: ",@CurRoom)
+  #T+ $roomRoomShort
+  PlayerDetectOn
+  ActionAdd "GrinderNextMob"
+  #IF (%lower(%roomid())=$room) {glance} {#WALK  @CurRoom}
+  GStat
+  MountPrep
+  ActionNext
+}
+
+} $CLASS
+
+#AL GrinderRoomConditions {
+$room=%lower(%item(@GrinderRooms,@iRoom))
+#IF (!%ismember($room,"LinhirWwall")) {
+  //before room conditions
+  ActionAdd "GrinderNextMob"
+  ActionAdd  %concat("#ECHO GrinderNextRoom: Mobs seen: @MobList;ActionNext")
+  #IF (@CurRoom=%lower("LinhirFountain")) {glance}
+  #IF (%begins($room,%lower("LinBat"))) {$room="LinhirWwall"}
+
+  //after Room conditions
+  #IF (%roomid="lin_fountain") {glance}
+  #IF (!%ismember($room,"linhir_wall")) {ActionNext}
+}
+} $CLASS
+
+//--- GrinderNextMob ---//
+#AL GrinderNextMob {
+ClassOn "Grinder"
+#ADD iMob 1
+GrinderCurMob
+} $CLASS
+//--- GrinderNextMob ---//
+
+//--- GrinderCurMob ---//
+#AL GrinderCurMob {
+$prof = %lower(@MyProf)
+$CurRoom=%lower(%item(@GrinderRooms,@iRoom))
+ActionDelete "GrinderNextMob"
+ActionDelete "GrinderCurMob"
+ClassOn "Grinder"
+PlayerDetectOff
+#SW ((@PlayerDetected) && ((%pos(%lower("RuneCamp"),@Grinder)) || (%pos(%lower("RuneCamp"),@Grinder)))) {
+    GrinderNextSet
+} ((@GrinderMobsDead>%numitems(@MobList)) || (@iMob>%numitems(@MobList))) {
+  GrinderNextRoom
+} {
+  #VAR CurMob {%item(@MobList,@iMob)} {} VAR
+  #ECHO MobList:  @MobList, CurMob:  @CurMob
+  MountPrep
+  GStat
+  #WALK $CurRoom
+  #T+ GrinderHasDied
+  #T+ GrinderYouAttack
+  #T+ NotThere
+  #IF (!@wielding) {ws}
+  kill %lower(@CurMob)
+}
+} $CLASS
+//--- GrinderCurMob ---//
+
+
+
+#AL GrinderNextSet {
+SysMsg "QuestNext: Looping through GrinderQueue..."
+#VAR QuesterCheck {} {} VAR
+#LOOP @GrinderQueue_i+1,%numitems(@GrinderQueue) {
+  #ADD GrinderQueue_i 1
+  $next_quest=%word(%item(@GrinderQueue,@GrinderQueue_i),1)
+  $next_QuesterCheck=%concat($next_quest,"_Check")
+  SysMsg Executing: $next_QuesterCheck
+  #EXE {$next_QuesterCheck}
+  #WAIT 100
+
+  //#IF (%iskey(@QuesterCheck,1)) {GrinderNEXT_CHECK_PASS} {SysMsg $next_QuesterCheck failed.}
+  #IF (@QuesterCheck) {#BREAK
+  } {SysMsg $next_QuesterCheck failed.
+  }
+}
+#IF (@QuesterCheck) {
+#EXE {"ActionAdd @QuesterCheck"}
+$goldLimit=@MyTrueLevel*10 + 100
+ActionAdd %concat("#IF (@MyGold>",$goldLimit,") {gnb;deposit all};ActionNext")
+}
+GrinderShow
+ActionNext
+} $CLASS
+
+#AL GrinderNext_Check_Pass {
+#EXE {"ActionAdd @QuesterCheck"}
+$goldLimit=@MyTrueLevel*10
+ActionAdd %concat("#IF (@MyGold>",$goldLimit,") {gnb;deposit all};ActionNext")
+} $CLASS
+
+
+#AL GrinderQueue_Repeat {
+MyProfileVars
+#VAR QuestName {"GrinderQueue_Repeat"} {} VAR
+#VAR GrinderQueue_i {0} {} VAR
+#SW (@GrinderSet="GRINDME") {GrindMe
+} (@GrinderSet="GETMATS") {GetMats}
+} $CLASS
+
+#AL GrinderQueue_Repeat_Check {
+QuesterCheck GrinderQueue_Repeat 1 100
+} $CLASS
+
+
+#AL GrinderShow {
+#IF (@GrinderSet) {SysMsg GrinderSet @GrinderSet}
+#IF (@GrinderQueue_i) {SysMsg Grinder Queue: Pointing: @GrinderQueue_i}
+#IF (@GrinderQueue) {#LOOP @GrinderQueue {SysMsg %i: %item(@GrinderQueue,%i)}}
+#IF (@SetsEnabled) {SysMsg Sets Enabled: @SetsEnabled}
+SysMsg Grinder: @Grinder
+SysMsg GrinderRooms: @GrinderRooms
+SysMsg MobList:  @MobList
+#IF (@GrinderGoldHolder) {GoldHolder: %proper(@GrinderGoldHolder)}
+SysMsg iRoom: @iRoom/%numitems(@GrinderRooms), Room:  @CurRoom, iMob:  @iMob/%numitems(@MobList), Dead: @GrinderMobsDead/%numitems(@MobList), CurMob:  @CurMob
+ActionShow
+} $CLASS
+
+#AL GShow {GrinderShow} $CLASS
+#AL GStat {GrinderShow} $CLASS
+
+#AL GrinderStop {
+QuestOff @Grinder
+RESET_Grinder
+ActionClear
+StopWalk
+} $CLASS
+
+#AL GrindStop {GrinderStop} $CLASS
+#AL GStop {GrinderStop} $CLASS
+
+
+#AL GrinderClear {
+#VAR GrinderQueue {} {} VAR
+#VAR GrinderQueue_i {} {} VAR
+#VAR QuesterCheck {} {} VAR
+SysMsg GrinderQueue cleared.
+} $CLASS
+
+
+#AL GrinderEnd {SysMsg Grinder Completed.;BotOff Grinder
+#VAR Grinder {} {} VAR
+#VAR iRoom {} {} VAR
+#VAR iMob {} {} VAR
+#VAR CurRoom {} {} VAR
+#VAR CurMob {} {} VAR
+#VAR MobList {} {} VAR
+#VAR PlayerDetected {} {} VAR
+#VAR GrinderRooms {} {} VAR
+#VAR GrinderMobsDead {} {} VAR
+#VAR QuesterCheck {} {} VAR
+QuestComplete
+#IF (@ActionQueue) {
+  #ALA "Action" +2 {ActionNext} $Settings
+}
+} $CLASS
+#CLASS 0
