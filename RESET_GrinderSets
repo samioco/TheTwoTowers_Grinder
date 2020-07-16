@@ -1,0 +1,72 @@
+#CLASS 0
+#VAR GrinderEriadorLowLevel {} {} VAR
+#ADDI GrinderEriadorLowLevel "Freebies_WestArda" //Level 1-5
+#ADDI GrinderEriadorLowLevel "MichelDelving_DiamondDagger" //Level 1+
+#ADDI GrinderEriadorLowLevel "Buckland_JewelersPendant" //Level 1-5
+#ADDI GrinderEriadorLowLevel "Buckland_MuttsBone" //Level 1-5
+#ADDI GrinderEriadorLowLevel "Buckland_DudosBakery" //Level 1-5
+#ADDI GrinderEriadorLowLevel "Buckland_PersonalSpellbook" //Level 1+
+#ADDI GrinderEriadorLowLevel "Buckland_LoversRing" //Level 1-5
+#ADDI GrinderEriadorLowLevel "Bywater_LunchSack" //Level 1-5
+#ADDI GrinderEriadorLowLevel "Bywater_Bricks" //Level 1-5
+#ADDI GrinderEriadorLowLevel "Shire_CorbosSatchel" //Level 1+
+#ADDI GrinderEriadorLowLevel "Shire_BabushkasFlowers" //Level 1+
+#ADDI GrinderEriadorLowLevel "Belegost_Soapstone" //Level 1-5
+#ADDI GrinderEriadorLowLevel "BlueMtns_SmithsForge" //Level 1+
+#ADDI GrinderEriadorLowLevel "AdvCaves_DwarfWizard" //Level 2-5
+#ADDI GrinderEriadorLowLevel "Bywater_IvyBushTavern" //Level 1-5
+#ADDI GrinderEriadorLowLevel "Stock_Backpack" //Level 3-5
+#ADDI GrinderEriadorLowLevel "Frogmorton_DragonDagger" //Level 4-5
+#ADDI GrinderEriadorLowLevel "Midgewater_SavingBreezy" //Level 1+
+#ADDI GrinderEriadorLowLevel "Belegost_SerpentsFang" //Level 4+
+#ADDI GrinderEriadorLowLevel "Tookland_HiddenCabinet" //Level 4
+
+#VAR GrinderEriador {} {} VAR
+#ADDI GrinderEriador "MichelDelving_DiamondDagger" //Level 1+
+#ADDI GrinderEriador "Bywater_LunchSack"
+#ADDI GrinderEriador "Eriador_HelpingOddPeople"
+#ADDI GrinderEriador "Shire_CorbosSatchel" //Level 1+
+#ADDI GrinderEriador "Shire_BabushkasFlowers" //Level 1+
+#ADDI GrinderEriador "Freebies_WestArda" //Level 1+
+#ADDI GrinderEriador "Midgewater_SavingBreezy" //Level 1+
+#ADDI GrinderEriador "BlueMtns_SmithsForge" //Level 1+
+#ADDI GrinderEriador "BarrowDowns_BarrowWight"
+#ADDI GrinderEriador "Bree_ForsakenInn"
+#ADDI GrinderEriador "Bree_PostalDelivery"
+#ADDI GrinderEriador "Staddle_AleDelivery"
+#ADDI GrinderEriador BlueMtns_SmithsForge //Level 1+
+#ADDI GrinderEriador Belegost_SerpentsFang //Level 4+
+#ADDI GrinderEriador "Midgewater_SavingBreezy" //Level 1+
+#ADDI GrinderEriador Bree_ForsakenInn //Level 5+
+#ADDI GrinderEriador MichelDelving_TheRebellion //Level 8+
+
+#VAR GrinderWestRohan {} {} VAR
+#ADDI GrinderWestRohan "WRohan_AnkesHouseDiaper" //Level 1+
+#ADDI GrinderWestRohan "Adornas_HamlingsField"
+#ADDI GrinderWestRohan "Adornas_QuarryPick"
+#ADDI GrinderWestRohan "Adornas_BlackHorse"
+#ADDI GrinderWestRohan "WRohan_WhiteStallion"
+#ADDI GrinderWestRohan "WRohan_Panniers"
+#ADDI GrinderWestRohan "WRohan_FreeingThePrisoner"
+#ADDI GrinderWestRohan "GrinderSparklingHalberd"
+
+#VAR GrinderRivendell {} {} VAR
+#ADDI GrinderRivendell "MistyMtns_Crystal" //Level 1+
+#ADDI GrinderRivendell "Rivendell_BilbosBook" //Level 1 - 7
+#ADDI GrinderRivendell "Rivendell_DogFood" //Level 1 - 5
+#ADDI GrinderRivendell "Rivendell_RabbitHunt" //Level 1+
+#ADDI GrinderRivendell "TheWild_DoriasNecklace" //Level 1+
+#ADDI GrinderRivendell "TheWild_SindarinSword" //Level 1+
+#ADDI GrinderRivendell "TheWild_OldDwarvenSword" //Level 2 - 6
+#ADDI GrinderRivendell "Rivendell_ChainmailShirt" //Level 2 - 8
+#ADDI GrinderRivendell "TheWild_AdventurersSword" //Level 10+
+#ADDI GrinderRivendell "TheWild_GleamingMailShirt" //Level 11+
+#ADDI GrinderRivendell "MistyMtns_PeltString" //Level 8 - 10
+#ADDI GrinderRivendell "TheWild_RangersDocuments" //Level 8+
+#ADDI GrinderRivendell "TheWild_TrollsTreasure1" //Level 10+
+#ADDI GrinderRivendell "TheWild_TrollsTreasure2" //Level 12+
+#ADDI GrinderRivendell "TheWild_TrollsTreasure3" //Level 12+
+#ADDI GrinderRivendell "MistyMtns_SilverQuartzRing" //Level 12+
+#ADDI GrinderRivendell "Rivendell_AthelasSteed" //Level 7+
+#ADDI GrinderRivendell "Ettenmoors_RansackedHut"
+#CLASS 0
