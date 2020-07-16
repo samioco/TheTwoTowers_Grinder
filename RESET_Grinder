@@ -1,0 +1,29 @@
+#CLASS 0
+RESET_GrinderVariables
+
+RESET_GrinderSets
+RESET_GrinderLists
+RESET_GrinderListsEvil
+RESET_GrinderListsFreeRace
+
+RESET_GrinderSettings
+RESET_GrinderEXE
+RESET_GrinderHeal
+RESET_GrinderLoot
+RESET_GrinderPlayerDetect
+RESET_GrinderSell
+RESET_GrinderRoomSettings
+
+RESET_GrinderWalkEXE
+RESET_GrinderWalkSettings
+
+RESET_GrinderUnload
+RESET_GrinderAutoLogin
+RESET_GrinderRepeat
+
+ClassOff Grinder
+ClassOff GrinderWalker
+#IF (%alias(QuestOff)) {QuestOff}
+#IF (%alias(PlayerDetectOff)) {PlayerDetectOff}
+#IF (%alias(GrinderClear)) {GrinderClear}
+#CLASS 0
