@@ -1,0 +1,158 @@
+#CLASS 0
+$Settings = "Tools|Grinder|Global"
+
+#UNT "GrinderNextMob"
+#UNT "GrinderCurMob"
+#UNT "LinhirWall"
+#UNT "CaravanWalk"
+#UNT "Rest"
+#UNT "Attack"
+#UNT "ProfAttack"
+#UNT "Shape"
+#UNT "Glance"
+#UNT "Inventory"
+#UNT "CheckInventory"
+#UNT "Bleeding"
+#UNT "HasDiedEXE"
+
+$Settings = "Tools|Grinder|Settings"
+
+#TR BleedingToDeath {bleeding to death} {
+$wait=%random(1,2)
+#ECHO Finishing blow in: $wait seconds...
+#ALA "Bleeding" +$wait {kill} $Settings
+} $Settings
+
+#TR GrinderWimpy {^You run %1.} {
+GrinderWimpyEXE %1
+} $Settings
+
+#TR CantRestInCombat {You can't rest whilst being in combat!} {
+$wait=%random(1,3)
+#ECHO Resting in: $wait seconds...
+#ALA "Rest" +$wait {rest} $Settings
+} $Settings
+
+#TR GrinderHasDied {^%1 has died.} {
+#T- NotThere
+#UNT "Bleeding"
+#ADD GrinderMobsDead 1
+GStat
+ActionAdd "GrinderNextMob"
+#IF (@GrinderMobsDead>=%numitems(@MobList)) {ActionAdd "GrinderLoot"}
+ActionNext
+} $Settings
+
+#TR NotThere {You don't see that here.} {
+#T- NotThere
+#IF (@trigger) {trigger off}
+#ECHO NotThere triggered! Moving to next mob!
+#IF (@GrinderMobsDead>=%numitems(@MobList)) {
+  #T- NotThere
+  #IF (@MyProf=archer) {SV}
+  GrinderLoot
+  ActionNext
+} {
+  GrinderNextMob
+}
+} $Settings
+
+#TR GrinderWagonFull {^Your * {"wagon|cart"} is ({"stuffed full|almost full|about half full|less than half full|almost empty"})} {
+$param=%0
+GrinderSellCondition $param
+} $Settings
+
+#TR GrinderPanniers_Full {The set of panniers is ({"stuffed full|almost full|about half full|less than half full|almost empty"})} {
+$param=%0
+GrinderSellCondition $param
+} $Settings
+
+#TR GrinderYouAttack {You attack %1.} {
+$CurMob=%lower(%1)
+$roomID=%lower(%roomid())
+$noMountRooms=%lower(@GrinderNoMountRooms)
+#T- NotThere
+#T- GrinderYouAttack
+#T- GrinderWagonFull
+#T+ GrinderWimpy
+$target=""
+$wait=%random(1,5)
+#ECHO ProfAttack in: $wait seconds
+#ALA "ProfAttack" +$wait {ProfAttack} $Settings
+#IF ((@MyProf="rider") && (@MonstrousWarg) && (!%ismember($roomID,$noMountRooms))) {
+  #ECHO Lunging Monstrous Warg!
+  Mon
+  kill
+}
+$markQueList="mark|fart|scoff|meh|heh|kiss"
+$mark=%item($markQueList,%random(1,%numitems($markQueList)))
+#SW (%pos("guard",$CurMob)) {$target="guard"
+} (%pos("archer",$CurMob)) {$target="archer"
+} (%pos("orc",$CurMob)) {$target="orc"
+} (%pos("sentry",$CurMob)) {$target="sentry"
+} (%pos("scout",$CurMob)) {$target="scout"
+} (%pos("commander",$CurMob)) {$target="commander"
+} (%pos("elf",$CurMob)) {$target="elf"
+} (%pos("uruk",$CurMob)) {$target="uruk"
+} (%pos("troll",$CurMob)) {$target="troll"
+} (%pos("olog",$CurMob)) {$target="olog"
+} (%pos("dwarf",$CurMob)) {$target="dwarf"
+} (%pos("haradrim",$CurMob)) {$target="haradrim"}
+$target=%lower($target)
+#IF ((@Party) && (@MyName=@PartyLeader) && (%random(3))) {
+  #ECHO In $wait secs: Marking target: $target
+  #ALA "MarkTarget" +$wait {$mark $target}
+}
+} $Settings
+
+#TR CantSee {Kill what?  You can't see a thing!} {
+ActionAdd "extinguish crystal;ActionNext"
+light crystal
+kill %lower(@CurMob)
+} $Settings
+
+#TR PartyMemberLowHP {^Party emote: ({%item(@Party,1)}) has hp: %2/%d and end: %3/(%d)} {
+#IF (%2<100) {#ECHO Partymember needs healing!}
+#ECHO %1: %2 / %3
+#IF ((%2<100) AND (@Grinder)) {party say %lower(%1), go heal}
+} $Settings
+
+#TR StillBusy {Wait a minute, you're still busy!} {
+$wait=%random(1,3)
+#ALA "KillMob" +$wait {kill %lower(@CurMob)} $Settings
+} $Settings
+
+#TR MissedAttack {^{@Messages_MissedAttack}} {
+#IF (%mud.ep>%mud.hp) {
+  #IF (%random(0,2)) {ProfAttack}
+}
+} $Settings
+
+#TR RiderCantTrample {^{"You must be riding to trample anyone|Your mount is too tired to trample"}.} {
+$wait = %random(1,3)
+#ALA "OtherAttack" +$wait {OtherAttack} $Settings
+} $Settings
+
+#TR NeedStaffToCast {You must have a staff in your hands to cast any spells.} {hold staff} $Settings
+
+#TR Leeches {You feel your vitality ebb, as if blood were being sucked} {pull leech} $Settings
+
+#TR CrystalDies {The crystal flickers and dies.} {
+do untag spent crystal,drop spent crystal
+#IF (@Grinder) {
+  CrystalOn
+  light crystal
+}
+} $Settings
+
+#TR ShimmeringRingDrop {You remove a shimmering silver-quartz ring.} {
+AimRingSave
+} $Settings
+
+#T+ GrinderYouAttack
+#T+ NotThere
+#T+ GrinderHasDied
+#T+ GrinderWagonFull
+#T+ GrinderWimpy
+
+#CLASS 0
