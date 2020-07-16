@@ -1,0 +1,116 @@
+#CLASS 0
+$Settings = "Tools|Grinder|GrinderWalk"
+
+#TR WalkerMissedAttack {{@Messages_MissedAttack}} {
+#IF ((%mud.ep>%mud.hp) && (%random(0,2))) {
+  WalkerProfAttack 1
+}
+} $Settings
+
+#TR {^You run %1.} {
+MyProfileVars
+WalkerUnSetCombatCommands
+WalkerDisableMobs
+ActionClear
+ActionAdd "QuestComplete @Grinder"
+ActionAdd "WalkerSearch"
+ActionAdd "WS;#IF ((@MyMaxHP-%mud.hp)<20) {#WALK @CurRoom;kill @CurMob} {HealMe}"
+$wait = %random(1,3)
+#ALA "HealHere" +$wait {HealHere}
+} $Settings
+
+
+#TR WalkerYouAttack {You attack} {
+#T- WalkerYouAttack
+WalkerDisableMobs
+WalkerUnSetCombatCommands
+#VAR CurRoom {%roomnum()} {} VAR
+WalkerSetCombatCommands
+WalkerProfAttack
+#IF ((@MyProf="rider") && (@MonstrousWarg)) {
+  #ECHO Lunging Monstrous Warg!
+  #ALA "Lunge" +2 {
+    Mon "NoEXE"
+    AddToEXE "kill"
+    ExecuteEXE
+    } $Settings
+}
+} $Settings
+
+#TR WalkerTooBusy {You are too busy to make an attack!} {
+#UNT "GrinderCheckInventory"
+WalkerProfAttack
+} $Settings
+
+#TR ShapeFail {{"shape <target>|Shape all what?"}} {
+WalkerUnSetCombatCommands
+} $Settings
+
+#TR WalkerBleedingToDeath {%1 is bleeding to death} {
+WalkerUnSetCombatCommands
+$mob=%lower(%1)
+$wait=%random(1,2)
+#VAR EXE {%concat("kill ",%lower(%1))} {} VAR
+#ECHO In $wait secs: @EXE
+#ALA "Bleeding" +$wait {kill} $Settings
+} $Settings
+
+#TR WalkerHasDied {%1 has died.} {
+WalkerUnSetCombatCommands
+#VAR HasDiedMob {%lower(%1)} {} VAR
+$wait = %random(3,10)
+#ECHO In $wait secs: WalkerHasDiedEXE @HasDiedMob
+#ALA "HasDiedEXE" +$wait {WalkerHasDiedEXE @HasDiedMob} $Settings
+} $Settings
+
+#TR CorpseRotsAway {The corpse completely rots away.} {
+#VAR HasDiedMob {%lower(%1)} {} VAR
+$wait = %random(3,7)
+#ECHO In $wait secs: WalkerHasDiedEXE @HasDiedMob
+#ALA "HasDiedEXE" +$wait {WalkerHasDiedEXE @HasDiedMob} $Settings
+} $Settings
+
+#TR WalkerCannotDoThatWhileMounted {You cannot do that while mounted!} {
+dismount
+ActionAdd "WalkerContinue"
+ActionNext
+} $Settings
+
+#TR WalkerDontSeeThatHere {You don't see that here.} {
+WalkerUnSetCombatCommands
+ActionAdd "WalkerContinue"
+ActionNext
+} $Settings
+
+#TR WalkerKillWhat {Kill what?} {
+WalkerUnSetCombatCommands
+ActionAdd "WalkerContinue"
+ActionNext
+} $Settings
+
+#TR WalkerCantGoThatWay {You can't go that way!} {
+WalkerUnSetCombatCommands
+StopWalk
+#UNT Alarm_rest
+QuestAbort
+} $Settings
+
+#TR TooMuchLoot {{"The pelt string is already too heavy to carry that.|The pelt string is too heavily loaded.|: Too heavy.|: Too bulky."}} {
+#T- TooMuchLoot
+WalkerUnSetCombatCommands
+#VAR WalkerLastRoom {%roomnum()} {} VAR
+PauseWalk
+ActionDelete "WalkerContinue"
+ActionDelete "WalkerSearch"
+ActionDelete "WalkerSell"
+ActionAdd "WalkerSearch"
+ActionAdd "WalkerSell"
+ActionAdd "#WALK @WalkerLastRoom;PeltAll;MountPrep;ActionNext"
+WalkerSell
+} $Settings
+
+WalkerUnSetCombatCommands
+#T- TooMuchLoot
+#T- $Settings
+
+#CLASS 0
