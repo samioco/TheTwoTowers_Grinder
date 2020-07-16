@@ -1,0 +1,39 @@
+#CLASS 0
+#VAR PlayerDetected {} {} VAR
+
+$CLASS = "Tools|Grinder|PlayerDetect"
+
+#TR PlayerDetect1 {^ %1 the {@Races}} {
+$player=%proper(%word(%1,1))
+#IF (!%ismember($player,@Party)) {
+  #VAR PlayerDetected {$player} {} VAR
+  #ECHO Foreign Player Detected: $player
+  PlayerDetectOff
+}
+} $CLASS
+
+#TR PlayerDetect2 {^ %1 is riding %1'{"|s"}} {
+$player=%proper(%word(%1,1))
+#IF (!%ismember($player,@Party)) {
+  #VAR PlayerDetected {$player} {} VAR
+  #ECHO Foreign Player Detected: $player
+  PlayerDetectOff
+}
+} $CLASS
+
+#T- PlayerDetect1
+#T- PlayerDetect2
+
+
+#AL PlayerDetectOn {
+#VAR PlayerDetected {} {} VAR
+#T+ PlayerDetect1
+#T+ PlayerDetect2
+} $CLASS
+
+#AL PlayerDetectOff {
+#T- PlayerDetect1
+#T- PlayerDetect2
+} $CLASS
+
+#CLASS 0
