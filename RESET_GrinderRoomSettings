@@ -1,0 +1,21 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+
+#AL GrinderResetRoom {
+$room=%concat(%roomid,"RoomShort")
+#T- $room
+#T+ GrinderHasDied
+#VAR MobList {} {} VAR
+PlayerDetectOn
+} $CLASS
+
+#AL GrinderResetAllRoomSettings {
+PlayerDetectOff
+#VAR PlayerDetected {} {} VAR
+#VAR GrinderRoomSettings {} {} VAR
+#FORALL @PlayerDetectSettings {#ADDI GrinderRoomSettings %i}
+#FORALL @{%concat(@Grinder,"Settings")} {#ADDI GrinderRoomSettings %i}
+#FORALL @GrinderRoomSettings {#T- %i}
+} $CLASS
+
+#CLASS 0
