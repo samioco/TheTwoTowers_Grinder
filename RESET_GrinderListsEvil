@@ -1,0 +1,188 @@
+#CLASS 0
+#VAR GrinderER_15plus {} {} VAR
+#ADDI GrinderER_15plus Freebies_Kadar
+#ADDI GrinderER_15plus Freebies_Harondor
+#ADDI GrinderER_15plus Freebies_Pelargir_Outskirts
+#ADDI GrinderER_15plus Freebies_Anorien
+#ADDI GrinderER_15plus WhiteMtns_WellMadeDagger
+#ADDI GrinderER_15plus Edoras_Leggings
+#ADDI GrinderER_15plus Lothlorien_LargeCanteen
+#ADDI GrinderER_15plus Ithilien_BlackBaldric
+#ADDI GrinderER_15plus Baraddur_CloakforScar
+#ADDI GrinderER_15plus Baraddur_PBSChest
+#ADDI GrinderER_15plus Gundabad_SteelBreastplate
+#ADDI GrinderER_15plus Freebies_SouthRhov
+#ADDI GrinderER_15plus Harondor_VariagWarHelmet
+#ADDI GrinderER_15plus Belfalas_HelpingSharlonn
+#IF (!@Party) {#ADDI GrinderER_15plus Ithilien_SlayingtheFarmer}
+#IF (@MyFaction="ER") {
+  #ADDI GrinderER_15plus Turseg_TorturePrisoner
+  #ADDI GrinderER_15plus GreyMtns_OldBlackStaff
+  #ADDI GrinderER_15plus GreyMtns_IntricateSword
+  #ADDI GrinderER_15plus GreyMtns_RedCrystal
+  #ADDI GrinderER_15plus FarHarad_RiskinsTreachery
+  #ADDI GrinderER_15plus Azrakadar_KillTheTraitors
+  #ADDI GrinderER_15plus Azrakadar_PortmastersPapers
+  #ADDI GrinderER_15plus FarHarad_SlaveMastersPack
+  #ADDI GrinderER_15plus EastForest_PantherDen
+  #ADDI GrinderER_15plus EastForest_SpikedHook
+  #ADDI GrinderER_15plus FarHarad_YiltigsChallenge
+  #ADDI GrinderER_15plus GrinderYiltig
+  #ADDI GrinderER_15plus Asubuhi_CruelLongsword
+  #ADDI GrinderER_15plus FarHarad_EbonyHelm
+  #IF (@MyProf=necromancer) {#ADDI GrinderER_15plus FarHarad_TimaStaff}
+  #ADDI GrinderER_15plus FarHarad_HaradrimPack
+  #ADDI GrinderER_15plus FarHarad_QataPashasGold
+  #ADDI GrinderER_15plus FarHarad_DarkBladedRapier
+  #ADDI GrinderER_15plus BunaboValley_PeltString
+  #ADDI GrinderER_15plus EastForest_TrappedTaniBoys
+  #ADDI GrinderER_15plus GrinderEasternForest
+}
+#ADDI GrinderER_15plus Harondor_Crystal
+#ADDI GrinderER_15plus GrinderTarnost
+#ADDI GrinderER_15plus WallofMordor_DreybansRock
+#ADDI GrinderER_15plus Galenwath_Leggings
+#ADDI GrinderER_15plus Umbar_BronzeGreaves
+#IF (@Gear_Wagon) {#ADDI GrinderER_15plus GrinderESLS} {#ADDI GrinderER_15plus NH_ElegantSteelLongsword}
+#IF (@Gear_Wagon) {#ADDI GrinderER_15plus GrinderGWSCamp} {#ADDI GrinderER_15plus GrinderGWS}
+#ADDI GrinderER_15plus Edoras_ShiningLongsword
+#ADDI GrinderER_15plus GrinderFramsburg
+#ADDI GrinderER_15plus GrinderThranduils
+
+
+#VAR GrinderER_10to14 {} {} VAR
+#ADDI GrinderER_10to14 Freebies_Kadar
+#ADDI GrinderER_10to14 Freebies_Harondor
+#ADDI GrinderER_10to14 Freebies_Pelargir_Outskirts
+#ADDI GrinderER_10to14 Freebies_Anorien
+#ADDI GrinderER_10to14 WhiteMtns_WellMadeDagger
+#ADDI GrinderER_10to14 Edoras_Leggings
+#ADDI GrinderER_10to14 Lothlorien_LargeCanteen
+#ADDI GrinderER_10to14 Ithilien_BlackBaldric
+#ADDI GrinderER_10to14 Baraddur_CloakforScar
+#ADDI GrinderER_10to14 Baraddur_PBSChest
+#ADDI GrinderER_10to14 Gundabad_SteelBreastplate
+#ADDI GrinderER_10to14 Freebies_SouthRhov
+#ADDI GrinderER_10to14 Harondor_VariagWarHelmet
+#ADDI GrinderER_10to14 GrinderTarnost
+#ADDI GrinderER_10to14 Belfalas_HelpingSharlonn
+#ADDI GrinderER_10to14 Turseg_TorturePrisoner
+#ADDI GrinderER_10to14 GreyMtns_OldBlackStaff
+#ADDI GrinderER_10to14 GreyMtns_IntricateSword
+#ADDI GrinderER_10to14 GreyMtns_RedCrystal
+#ADDI GrinderER_10to14 Azrakadar_CargoDelivery
+#ADDI GrinderER_10to14 FarHarad_SerundsRevenge
+#ADDI GrinderER_10to14 Azrakadar_KillTheTraitors
+#ADDI GrinderER_10to14 Azrakadar_PortmastersPapers
+#ADDI GrinderER_10to14 Azrazayan_FreeingAdrialle
+#ADDI GrinderER_10to14 FarHarad_SlaveMastersPack
+#ADDI GrinderER_10to14 Azmaroth_ChainmailShirt
+#ADDI GrinderER_10to14 FarHarad_GruborsMumak
+#ADDI GrinderER_10to14 GreyMtns_WolfCave
+#ADDI GrinderER_10to14 FarHarad_RiskinsTreachery
+#ADDI GrinderER_10to14 BunaboValley_PeltString
+#ADDI GrinderER_10to14 FarHarad_BlackUrukShield
+#ADDI GrinderER_10to14 FarHarad_EbonyHelm
+#ADDI GrinderER_10to14 FarHarad_HaradrimPack
+#ADDI GrinderER_10to14 FarHarad_QataPashasGold
+#ADDI GrinderER_10to14 Tavorus_TheSmuggler
+#ADDI GrinderER_10to14 EastCamp_PreparingBoards
+#ADDI GrinderER_10to14 EastForest_PantherDen
+#ADDI GrinderER_10to14 EastForest_VoleHunt
+#ADDI GrinderER_10to14 EastForest_SpikedHook
+#ADDI GrinderER_10to14 FarHarad_YiltigsChallenge
+#ADDI GrinderER_10to14 GrinderYiltig
+#ADDI GrinderER_10to14 Asubuhi_GuardsBuckle
+#ADDI GrinderER_10to14 Asubuhi_CruelLongsword
+#ADDI GrinderER_10to14 EastForest_TrappedTaniBoys
+#ADDI GrinderER_10to14 FarHarad_DarkBladedRapier
+#ADDI GrinderER_10to14 FarHarad_FancySword
+#ADDI GrinderER_10to14 GrinderBunaboValley
+#ADDI GrinderER_10to14 GrinderEasternForest
+#ADDI GrinderER_10to14 GrinderFramsburg
+#ADDI GrinderER_10to14 GrinderThranduils
+#ADDI GrinderER_10to14 TRAINME
+
+
+#VAR GrinderER_05to09 {} {} VAR
+#ADDI GrinderER_05to09 Freebies_Kadar
+#ADDI GrinderER_05to09 Freebies_Harondor
+#ADDI GrinderER_05to09 Freebies_Pelargir_Outskirts
+#ADDI GrinderER_05to09 Ithilien_BlackBaldric
+#ADDI GrinderER_05to09 Lothlorien_LargeCanteen
+//#ADDI GrinderER_05to09 Baraddur_CloakforScar
+#ADDI GrinderER_05to09 Baraddur_PBSChest
+#ADDI GrinderER_05to09 Gundabad_SteelBreastplate
+#ADDI GrinderER_05to09 Freebies_SouthRhov
+#ADDI GrinderER_05to09 Turseg_TorturePrisoner
+#ADDI GrinderER_05to09 Turseg_GatheringEquipment
+#ADDI GrinderER_05to09 Turseg_LatrineCleaning
+#ADDI GrinderER_05to09 Turseg_UrukDiscipline
+#ADDI GrinderER_05to09 AstUpper_CleaningDuty
+#ADDI GrinderER_05to09 AstUpper_MissingBook
+#ADDI GrinderER_05to09 Azmaroth_WarSledge
+#ADDI GrinderER_05to09 Azmaroth_DarkRobeSpell sell
+#ADDI GrinderER_05to09 Azmaroth_ChainmailShirt
+#ADDI GrinderER_05to09 GreyMtns_OldBlackStaff
+#ADDI GrinderER_05to09 GreyMtns_RedCrystal
+#ADDI GrinderER_05to09 FarHarad_SerundsRevenge
+#ADDI GrinderER_05to09 Azrakadar_CargoDelivery
+#ADDI GrinderER_05to09 Azrakadar_DerhailsStaff
+#ADDI GrinderER_05to09 Azrakadar_KillTheTraitors
+#ADDI GrinderER_05to09 Azrakadar_PortmastersPapers
+#ADDI GrinderER_05to09 FarHarad_SlaveMastersPack
+#ADDI GrinderER_05to09 FarHarad_GruborsMumak
+#ADDI GrinderER_05to09 BunaboValley_PeltString
+#ADDI GrinderER_05to09 FarHarad_ArghulsFigurine
+//#ADDI GrinderER_05to09 GreyMtns_AidingBurduk
+#ADDI GrinderER_05to09 FarHarad_RiskinsTreachery
+#ADDI GrinderER_05to09 GrinderWesternForest
+#ADDI GrinderER_05to09 Tavorus_TheSmuggler
+#ADDI GrinderER_05to09 EastCamp_PreparingBoards
+#ADDI GrinderER_05to09 EastForest_BoatMaterials
+#ADDI GrinderER_05to09 EastForest_VoleHunt
+#ADDI GrinderER_05to09 FarHarad_FancySword
+#ADDI GrinderER_05to09 GrinderBunaboValley
+#ADDI GrinderER_05to09 TRAINME
+
+#VAR GrinderER_01to04 {} {} VAR
+#ADDI GrinderER_01to04 Turseg_TorturePrisoner
+#ADDI GrinderER_01to04 Turseg_GatheringEquipment
+#ADDI GrinderER_01to04 Turseg_LatrineCleaning
+#ADDI GrinderER_01to04 Turseg_UrukDiscipline
+#ADDI GrinderER_01to04 Azmaroth_WarSledge
+#ADDI GrinderER_01to04 Azmaroth_DarkRobeSpell sell
+#ADDI GrinderER_01to04 AstUpper_CleaningDuty
+#ADDI GrinderER_01to04 AstUpper_MissingBook
+//#ADDI GrinderER_01to04 AstLower_EnlistInGuard
+//#ADDI GrinderER_01to04 AstLower_PunishSlave
+#ADDI GrinderER_01to04 FarHarad_FreeingTheDog
+//#ADDI GrinderER_01to04 Khemnahr_PitchingHay
+#ADDI GrinderER_01to04 Asubuhi_LetterDelivery
+#ADDI GrinderER_01to04 Asubuhi_RepairingStableWall
+#ADDI GrinderER_01to04 Tavorus_HarvestingFigs
+#ADDI GrinderER_01to04 Tavorus_WashingTheOliphaunt
+#ADDI GrinderER_01to04 Tavorus_AlCroutanisPotion
+#ADDI GrinderER_01to04 Tavorus_SmallSpear
+#ADDI GrinderER_01to04 Tavorus_TheSmuggler
+#ADDI GrinderER_01to04 EastCamp_PreparingBoards
+#ADDI GrinderER_01to04 EastForest_BoatMaterials
+#ADDI GrinderER_01to04 EastForest_VoleHunt
+#ADDI GrinderER_01to04 FarHarad_AbusedScript
+#ADDI GrinderER_01to04 Azrazayan_SerpentsTongue
+#ADDI GrinderER_01to04 Azrazayan_ShipRats
+#ADDI GrinderER_01to04 Azrazayan_ShipyardJob
+#ADDI GrinderER_01to04 FarHarad_SlaveMastersPack
+#ADDI GrinderER_01to04 Azrakadar_CargoDelivery
+#ADDI GrinderER_01to04 Azrakadar_DerhailsStaff
+#ADDI GrinderER_01to04 Azrakadar_KillTheTraitors
+#ADDI GrinderER_01to04 Azrakadar_PortmastersPapers
+#ADDI GrinderER_01to04 Azrazayan_FreeingAdrialle
+#ADDI GrinderER_01to04 GrinderAzrakadar_Shore
+#ADDI GrinderER_01to04 AstOutside_Altar sell
+#ADDI GrinderER_01to04 GrinderTurseg
+#ADDI GrinderER_01to04 GrinderWesternForest
+#ADDI GrinderER_01to04 TRAINME
+#ADDI GrinderER_01to04 FarHarad_ERLevel5Quest
+
+#CLASS 0
