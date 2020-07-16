@@ -1,0 +1,108 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+$Settings= "Tools|Grinder|Settings"
+
+// --- GrinderHealMe --- //
+#AL GrinderHealMe {
+BotOff Grinder
+ActionAdd "GrinderHealMeEXE"
+ActionAdd "HealHere"
+ActionNext
+} $CLASS
+// --- GrinderHealMe --- //
+
+// --- GrinderHealMeEXE --- //
+#AL GrinderHealMeEXE {
+#IF (((@MyMaxHP)-%mud.hp)>((@MyMaxHP)/4)) {
+  #SW (%begins(%lower(@Grinder),%lower("GrinderLinhir"))) {
+    ActionAdd "Grinder GrinderLinhir"
+  } (%begins(%lower(@Grinder),%lower("Grinderflets"))) {
+    ActionClear
+    ActionAdd "GrinderFlets_EXE"
+  }
+  HealMe
+} {
+  ActionNext
+}
+} $CLASS
+// --- GrinderHealMeEXE --- //
+
+
+#AL GrinderWimpyEXE {
+$dir=%lower(%1)
+$back=""
+$CurRoom=%lower(@CurRoom)
+#UNT "Rest"
+#UNT "Grinder"
+#SW ((@Grinder) && (@MyTrueLevel>=10)) {
+  MyProfileVars
+  #IF (@trigger) {trigger off}
+  ActionAdd "GrinderCurMob"
+  #T+ YouAttack
+  #IF (%begins($CurRoom,%lower("LinBat"))) {#WALK LinSG}
+  GrinderHealMe
+} ((@Grinder) && (@MyTrueLevel<10)) {
+  rest on
+  SysMsg Resting 300s, then moving to: $CurRoom
+  #ALA "Rest" +300 {GrinderCurMob} $Settings
+} {
+  #SW ($dir="south") {$back="north"
+  } ($dir="north") {$back="south"
+  } ($dir="east") {$back="west"
+  } ($dir="west") {$back="east"
+  } ($dir="up") {$back="down"
+  } ($dir="down") {$back="up"
+  } ($dir="northwest") {$back="southeast"
+  } ($dir="northeast") {$back="southwest"
+  } ($dir="southwest") {$back="northeast"
+  } ($dir="southeast") {$back="northwest"}
+SysMsg Waiting 300s, then try again, moving: $back
+#ALA "RestOn" +2 {rest on} $Settings
+#ALA "Rest" +300 {#EXE {$back}}
+}
+} $CLASS
+
+
+
+// --- Depo_BuyFood --- //
+#AL Depo_BuyFood {
+$action="";$foodName="";$food="";$shop="";$transferRoom="";$numleft="";$numneeded=0;$goldneeded=0
+ActionAdd "GoSP;ws;ActionNext"
+#IF ((@{%concat(@MyName,"_MaxHP")}-%mud.hp) > (@{%concat(@MyName,"_MaxHP")}/4)) {ActionAdd "HealMe"}
+#SW ((@MyFaction="FR") && (%ismember(%lower(@MyPublicAlign),%lower(@Alignments_Moral)))) {
+  $foodName="jerky"
+  $food="jerky"
+  $shop="MTFood"
+  $transferRoom="MTSP"
+  $numleft=@Jerky
+  $numneeded=15
+  $goldneeded=360
+} ((@MyFaction="FR") && (!%ismember(%lower(@MyPublicAlign),%lower(@Alignments_Moral)))) {
+  $foodName="shepherd's pie"
+  $food="pie"
+  $shop="PelBar"
+  $transferRoom="PelSP"
+  $numleft=@PelPies
+  $numneeded=10
+  $goldneeded=300
+} {
+  $foodName="meat pie"
+  $numneeded=10
+  $food="pie"
+  $shop="MMBar"
+  $transferRoom="WreckOut"
+  $numleft=@MeatPies
+  $goldneeded=320
+}
+#IF ($numleft<$numneeded) {
+  ActionAdd %concat("#WALK ",$transferRoom,";PackToContainers;;ActionNext")
+  ActionAdd %concat("#",$numneeded," {do order ",$foodName,",put ",$food," in pack};ActionNext")
+  ActionAdd %concat("#WALK ",$shop,";rw;ActionNext")
+  ActionAdd %concat("gnb;deposit all;withdraw ",$goldneeded,";ActionNext")}
+gold
+ActionNext
+} $CLASS
+// --- Depo_BuyFood --- //
+
+
+#CLASS 0
