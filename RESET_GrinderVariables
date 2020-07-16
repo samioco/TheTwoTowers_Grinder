@@ -1,0 +1,128 @@
+#CLASS VAR
+#VAR Grinder {} {} VAR
+#VAR iRoom {0} {} VAR
+#VAR iMob {0} {} VAR
+#VAR CurRoom {} {} VAR
+#VAR CurMob {} {} VAR
+#VAR MobList {} {} VAR
+#VAR HasDiedMob {} {} VAR
+#VAR KillMob {} {} VAR
+#VAR GrinderRooms {} {} VAR
+#VAR GrinderMobsDead {0} {} VAR
+#VAR QuesterCheck {} {} VAR
+#VAR GrinderGoldHolder {} {} VAR
+#VAR GrinderWalker {0} {} VAR
+#VAR SetsEnabled {} {} VAR
+#VAR BotsEnabled {} {} VAR
+#VAR GrinderQueue_i {0} {} VAR
+
+#VAR WalkerMobs {} {} VAR
+#VAR WalkerPath {} {} VAR
+#VAR WalkerStartRoom {} {} VAR
+#VAR WalkerLeftoverLootRoom {} {} VAR
+#VAR WalkerLastRoom {} {} VAR
+
+#VAR HumanoidRaces {} {} VAR
+#FORALL @Races {#ADDI HumanoidRaces %lower(%i)}
+#ADDI HumanoidRaces "orc"
+#ADDI HumanoidRaces "olog-hai"
+
+#VAR FarHaradHumanoidTypes {} {} VAR
+#ADDI FarHaradHumanoidTypes "bandit"
+#ADDI FarHaradHumanoidTypes "brigand"
+#ADDI FarHaradHumanoidTypes "deserter"
+#ADDI FarHaradHumanoidTypes "huntsman"
+#ADDI FarHaradHumanoidTypes "merchant"
+#ADDI FarHaradHumanoidTypes "messenger"
+#ADDI FarHaradHumanoidTypes "necromancer"
+#ADDI FarHaradHumanoidTypes "outlaw"
+#ADDI FarHaradHumanoidTypes "plunderer"
+#ADDI FarHaradHumanoidTypes "raider"
+#ADDI FarHaradHumanoidTypes "robber"
+#ADDI FarHaradHumanoidTypes "skirmisher"
+#ADDI FarHaradHumanoidTypes "soldier"
+#ADDI FarHaradHumanoidTypes "tradesman"
+#ADDI FarHaradHumanoidTypes "traveler"
+#ADDI FarHaradHumanoidTypes "wayfarer"
+#ADDI FarHaradHumanoidTypes "warrior"
+
+#VAR PlayerDetectSettings {"PlayerDetect1|PlayerDetect2"} {} VAR
+
+#VAR DSH_Settings {"dsh_young_guard|dsh_guardRoomShort|dsh_variagsRoomShort|dshRoomShort_variag|dsh_tall_variag|dsh_orcRoomShort|dsh_orc|dsh_pathRoomShort|dsh_strong_variag"} {} VAR
+#VAR GrinderGWSCamp {"gwscamp|gwscamp_inside1|gwscamp_inside3|gws|agrimar"} {} VAR
+#VAR GWSCamp_settings {"gwscampRoomShort|gwscamp_inside1RoomShort|gwscamp_inside3RoomShort|gwsRoomShort|gwscamp_haradrim_guard1|gwscamp_haradrim_guard2|gwscamp_commander|gwscamp_bodyguard|agrimarRoomShort|gws_agrimar|gws_scrabah"} {} VAR
+
+#VAR GrinderGWS {"agrimar"} {} VAR
+#VAR GrinderGWS_Settings {"agrimarRoomShort|gws_agrimar"} {} VAR
+
+#VAR GreyMtns_ElvenShield_Settings {"eshieldRoomShort|eshield_councilmembers|eshield_chief"} {} VAR
+#VAR Linhir_settings {"liNoutRoomShort|lin2RoomShort|lin3RoomShort|lin4RoomShort|linportRoomShort|lin_fountainRoomShort|lininRoomShort|lin2RoomShort|lin3RoomShort|lin4RoomShort|linhir_wallRoomShort|linhir_patrol_guard|linhir_ground_guard1|linhir_ground_guard2|lin_fountain_you_Attack|lin_fountain_HasDied|linhir_wall_guard"} {} VAR
+
+#VAR GrinderLOGCAMP_Settings {"logcamp_guardsRoomShort|logcamp_guard1|logcamp_guard2|logcamp_officeRoomShort|logcamp_office_guard|logcamp_courtyardRoomShort|logcamp_lazy_worker1|logcamp_lazy_worker2|gunthruktuRoomShort|logcamp_gunthruktu|logcamp_infirmaryRoomShort|logcamp_strong_worker|logcamp_wounded_orc|logcamp_doctor|logcamp_kitchenRoomShort|logcamp_cook|logcamp_ropeRoomShort|logcamp_slave"} {} VAR
+
+#VAR GrinderRivendell_Settings {"RivSPRoomShort|riv_guard|berylRoomShort|riv_beryl|eshnaRoomShort|riv_eshna"} {} VAR
+
+#VAR runecamp_settings {"runecampRoomShort|runecamp_sentry1|runecamp_sentry2|runecamp_strongRoomShort|runecamp_strong_guard1|runecamp_strong_guard2|runecamp_warrior1RoomShort|runecamp_warrior2RoomShort|runecamp_warrior3RoomShort|runecamp_warrior4RoomShort|runecamp_warrior|runecamp_centerRoomShort|runecamp_cook"} {} VAR
+
+#VAR stopgap4_settings {"stopgap4aRoomShort|stopgap4bRoomShort|stopgap4cRoomShort|stopgap4_masterRoomShort|stopgap4_rugged_variag_scout|stopgap4_roughlooking_variag_scout1|stopgap4_roughlooking_variag_scout2|stopgap4_master"} {} VAR
+
+#VAR GrinderWhiteTowers_Settings {"wt_servant1RoomShort|wt_servant2RoomShort|wt_servant3RoomShort|wt_servant4RoomShort|alchorRoomShort|wt_practiceroomRoomShort|wt_kitchenRoomShort|wt_cellarRoomShort|wt_servant|wt_wizard|wt_cook"} {} VAR
+
+#VAR dharansar_settings {"skarabashRoomShort|dharansar_skarabashRoomShort|dharansar_nervous_guard_runs_in|dhguardsRoomShort|dharansar_agitated_guard|dharansar_nervous_guard"} {} VAR
+
+#VAR ghalib_settings {"ghalib_tentRoomShort|ghalib_tent_khanib|ghalib_tent_dhanib|ghalib_tent_rhajib|ghalib_tent_ghalib"} {} VAR
+//#VAR BronzeGreaves_Settings {"BronzeGreaves_lookoutRoomShort|BronzeGreaves_warriorRoomShort|BronzeGreaves_lookout|BronzeGreaves_warrior"} {} VAR
+#VAR caktash_settings {"caktash_orcsRoomShort|caktash_leaderRoomShort|caktash_ognjenRoomShort|caktash_dwarfRoomShort|caktash_caktashRoomShort"} {} VAR
+#VAR Mirkwood_OrcScoutCamp_settings {"clls_guardsRoomShort|clls_guards|clls_commanderRoomShort|clls_commander|bsls_guardsRoomShort|bsls_guards"} {} VAR
+
+#VAR GrinderTurseg_Settings {"turseg_miner1RoomShort|turseg_miner2RoomShort|turseg_miner3RoomShort|turseg_miner4RoomShort|turseg_soldier1RoomShort|turseg_soldier2RoomShort|turseg_soldier3RoomShort|turseg_miner|turseg_tired_uruk|turseg_sleeping_uruk|turseg_soldier|turseg_carpenter"} {} VAR
+
+#VAR GrinderGreyHavens_Settings {"gh_mouse1RoomShort|gh_mouse2RoomShort|gh_mouse|gh_gardenRoomShort|gh_sparrow|gh_squirrelRoomShort|gh_squirrel|gh_maiden1RoomShort|gh_maiden2RoomShort|bathhouseRoomShort|gh_maiden|gh_artisan|gh_home1RoomShort|gh_wineryRoomShort|gh_galleryRoomShort"} {} VAR
+
+#VAR GrinderForsakenInn_Settings {"forloutRoomShort|fi_stablesRoomShort|fi_bored_ruffian|fi_resting_ruffian|fi_growling_ruffian|fi_grumpy_ruffian"} {} VAR
+
+#VAR GrinderDeadmansDike_Settings {"dike_stunted_orc|dike_half_orc|dike_orcish_guard|dike_sleeping_orc|dike_sleepy_orc|dike_huge_rat|dike_orc1RoomShort|dike_orc2RoomShort|dike_orc3RoomShort|dike_orc4RoomShort|dike_orc5RoomShort|dike_orc6RoomShort|dike_rubbleRoomShort|dike_orc7RoomShort|dike_orc8RoomShort|dike_orc9RoomShort|dike_sleeping_orcs|dike_bat|dikeRoomShort|dike_bat1RoomShort|dike_rat1RoomShort|dike_rat|dike_bat2RoomShort|dike_bat3RoomShort|dike_deerRoomShort|dike_corpse_rat|dike_rat2RoomShort|dike_rat3RoomShort|dike_bat4RoomShort|dike_rat4RoomShort|dike_orc10RoomShort|throntRoomShort|dike_thront|dike_quartermasterRoomShort|dike_menacing_orc_guard|dike_quartermaster|dike_guardsRoomShort"} {} VAR
+
+#VAR GrinderThranduils_Settings {"Thran_orc_leader|Thran_orc|Thran_orcs1RoomShort|Thran_orcs2RoomShort|Thran_orcs3RoomShort|Thran_orcs4RoomShort|Thran_orcs5RoomShort|Thran_orcs6RoomShort|Thran_orcs7RoomShort|Thran_orcs8RoomShort|Thranstairs_orc|Thranstairs_orc_leader|ThranstairsRoomShort|ThranterraceRoomShort|Thran_underling|Thran_warrior"} {} VAR
+
+#VAR Ithilien_SlayingtheFarmer_Settings {"EnormousScythe_FarmerRoomShort|EnormousScythe_Farmer"} {} VAR
+
+#VAR GrinderESLS {"esls_guards|esls_pants|esls_cook|esls_center|esls_boots|esls_captain"} {} VAR
+#VAR GrinderESLS_Settings {"esls_captainRoomShort|esls_captain|esls_bodyguard|esls_bootsRoomShort|esls_tall_guard|esls_centerRoomShort|esls_soldier|esls_officerRoomShort|esls_officer|esls_cookRoomShort|esls_cook|esls_guardsRoomShort|esls_guards"} {} VAR
+#VAR NH_ElegantSteelLongsword {"esls_boots|esls_captain"} {} VAR
+#VAR NH_ElegantSteelLongsword_Settings {"esls_captainRoomShort|esls_captain|esls_bodyguard|esls_bootsRoomShort|esls_tall_guard|esls_centerRoomShort|esls_soldier|esls_officerRoomShort|esls_officer|esls_cookRoomShort|esls_cook|esls_guardsRoomShort|esls_guards"} {} VAR
+
+#VAR GrinderTarnost {"tarnost_elder"} {} VAR
+#VAR GrinderTarnost_Settings {"tarnost_elderRoomShort|tarnost_elder"} {} VAR
+
+#VAR GrinderFarHarad_FancySword {"fancysword_guards|fancysword_guard|fancysword_bed"} {} VAR
+#VAR FarHarad_FancySword_Settings {"fancysword_guardsRoomShort|fancysword_large_guard|fancysword_guardRoomShort|fancysword_sitting_haradrim|fancysword_tough_guard|fancysword_bedRoomShort|fancysword_sleeping_haradrim"} {} VAR
+
+
+#VAR GrinderFramsburg_Settings {"framhRoomShort|fram_res1RoomShort|fram_res2RoomShort|framstewRoomShort|framohRoomShort|fram_chieftainRoomShort|fram_leaderRoomShort|fram_injured_soldier|fram_guard|fram_large_soldier|fram_gruff_soldier|fram_injured_orc|fram_halforc|fram_chieftain|fram_leader|fram_orcs1RoomShort|fram_orcs2RoomShort|fram_orcs3RoomShort|fram_orcs4RoomShort|fram_orcs5RoomShort"} {} VAR
+
+#VAR GrinderThranduils {"Thran_orcs1|Thran_orcs2|Thran_orcs3|Thran_orcs4|Thran_orcs5|Thran_orcs6|Thran_orcs7|Thran_orcs8|Thranstairs|Thranterrace"} {} VAR
+
+#VAR GrinderThranduils_Settings {"ThranterraceRoomShort|Thran_underling|Thran_warrior|ThranstairsRoomShort|Thran_orc_leader|Thran_orc|Thran_orcs1RoomShort|Thran_orcs2RoomShort|Thran_orcs3RoomShort|Thran_orcs4RoomShort|Thran_orcs5RoomShort|Thran_orcs6RoomShort|Thran_orcs7RoomShort|Thran_orcs8RoomShort"} {} VAR
+
+#VAR FarHarad_QataPashasGold {"qata_lookout|qata_guards|qata_pasha"} {} VAR
+#VAR FarHarad_QataPashasGold_Settings {"qata_lookoutRoomShort|qata_lookout|qata_guardsRoomShort|qata_guard|qata_pashaRoomShort|qata_pasha"} {} VAR
+
+#VAR FarHarad_RiskinsTreachery {"riskin"} {} VAR
+#VAR FarHarad_RiskinsTreachery_Settings {"riskinRoomShort|riskin_riskin"} {} VAR
+
+#VAR Asubuhi_CruelLongsword_Settings {"slargorRoomShort|slargor|slargor_guard_enters|slargor_guard"} {} VAR
+#VAR GrinderAsubuhi_CruelLongsword {"slargor"} {} VAR
+
+#VAR GrinderYiltig {"yiltig"} {} VAR
+#VAR GrinderYiltig_Settings {"yiltigRoomShort|yiltig_horsemaster"} {} VAR
+
+#VAR Ettenmoors_RansackedHut {"ransackedhut_common|ransackedhut_kitchen|ransackedhut_garden|ransackedhut_shield|ransackedhut_shirt"} {} VAR
+#VAR Ettenmoors_RansackedHut_Settings {"ransackedhut_commonRoomShort|ransackedhut_kitchenRoomShort|ransackedhut_gardenRoomShort|ransackedhut_shieldRoomShort|ransackedhut_smellytroll|ransackedhut_shirtRoomShort|ransackedhut_repugnantorc"} {} VAR
+
+#VAR GrinderSparklingHalberd_Settings {"sparklinghalberd_warhound|sparklinghalberd_warhounds1RoomShort|sparklinghalberd_warhounds2RoomShort|sparklinghalberd_eliteswordsman|sparklinghalberd_soldier1RoomShort|sparklinghalberd_soldier2RoomShort|sparklinghalberd_captain|sparklinghalberd_captainRoomShort|sparklinghalberd_civilian|sparkhal_lowtrailRoomShort|sparkhal_hightrailRoomShort|sparklinghalberd_dunlending_sergeant|sparkhal_forkRoomShort|sparklinghalberd_sleeping_soldier|sparkhal_WagontrailRoomShort|sparklinghalberd_Wagoner|sparkhal_WagonRoomShort|sparklinghalberd_foot_soldier|sparkhal_battlefield1RoomShort|sparklinghalberd_dunlending_lookout|sparkhal_battlefield2RoomShort|sparkhal_entranceRoomShort|sparklinghalberd_sergeant_of_arms|sparkhal_glade1RoomShort|sparkhal_glade2RoomShort|sparkhal_glade3RoomShort|sparklinghalberd_massive_guard|sparkhal_massiveguard1RoomShort|sparkhal_massiveguard2RoomShort"} {} VAR
+#VAR GrinderSparklingHalberd {"sparklinghalberd_warhounds1|sparklinghalberd_warhounds2|sparklinghalberd_soldier1|sparklinghalberd_soldier2|sparklinghalberd_captain|sparkhal_lowtrail|sparkhal_hightrail|sparkhal_fork|sparkhal_Wagontrail|sparkhal_Wagon|sparkhal_battlefield1|sparkhal_battlefield2|sparkhal_entrance|sparkhal_glade1|sparkhal_glade2|sparkhal_glade3|sparkhal_massiveguard1|sparkhal_massiveguard2"} {} VAR
+
+
+
+#CLASS 0
