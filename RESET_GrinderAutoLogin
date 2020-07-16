@@ -1,0 +1,86 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|AutoLogin"
+
+#AL GrinderAutoLogin {
+MyProfileVars;#TI off
+#VAR QuestName {"GrinderAutoLogin"} {} VAR
+SysMsg Executing: GrinderAutoLogin
+ActionAdd "GrinderAutoLogin_EXE"
+ActionNext
+} $CLASS
+
+#AL GrinderAutoLogin_Check {QuesterCheck GrinderAutoLogin 1 100} $CLASS
+
+#AL GrinderAutoLogin_Alarm {
+$Alarm_timer=0;$Alarm_timer=%random(50,200)
+$Alarm_EXE = %concat("#ALA Alarm_Login {+",$Alarm_timer,":00} {AutoLogin_GrindMe}")
+SysMsg Created alarm: $Alarm_EXE
+#EXE {$Alarm_exe}
+} $CLASS
+
+#AL GrinderAutoLogin_Timeout_Check {QuesterCheck GrinderAutoLogin_Timeout 1 100} $CLASS
+
+#AL GrinderAutoLogin_Timeout_EXE {
+StopWalk;GSTOP;ActionClear;stopbusy
+#UNT Alarm_Timeout;#UNT Alarm_Login
+SysMsg Enabling: GrinderAuto_Timeout!
+ActionAdd "GrinderAutoLogin"
+ActionNext
+} $CLASS
+
+#AL GrinderTimeout_Alarm {
+$Alarm_timer=0
+$Alarm_timer=%random(100,150)
+$Alarm_exe=%concat("#UNT Alarm_Login;#UNT Alarm_Timeout;#ALA Alarm_Timeout {+",$Alarm_timer,":00} {GrinderAuto_Timeout_Exe}")
+SysMsg AutoLogin_Timeout created: $Alarm_EXE
+LookBusy 1500
+#EXE {$Alarm_exe}
+} $CLASS
+
+#AL GrinderAutoLogin_EXE {
+GSTOP;#WAIT 1000;ActionClear;StopWalk;ActionClear;stopbusy;#UNT Alarm_Rest;#UNT Alarm_Timeout
+SysMsg Ending Grinder: GrinderCompleted;#WAIT 1000
+ActionAdd %concat("ss;#WALK ",@MyBox,";put all in box;score;skills;legend me;sleep;quit")
+ActionAdd "#UNT Alarm_AutoLogin_GrindMe;#UNT Alarm_Auto_Timeout;GrinderLogin_Alarm;ActionNext"
+ActionAdd %concat("#WALK ",@MyBox,";d;do rent tiny box,rent small box,rent large box,rent huge box;#WALK ",@MyBox,",put all in box;rest on;ActionNext")
+ActionAdd %concat("gnb;deposit all;#SW (@MyLevel<=9) {withdraw 350} (@MyLevel<=14) {withdraw 500} {withdraw 700};withdraw 20;ActionNext")
+ActionAdd "gns;sall;ActionNext"
+
+#SW (%ismember(@MyBox,@ROOMS_Inns_FarHarad_ID)) {MoveMe_To_FH
+} (%ismember(@MyBox,@ROOMS_Inns_Arda_ID)) {MoveMe_To_Arda
+} (%ismember(@MyBox,@ROOMS_Inns_WestArda_ID)) {MoveMe_To_WestArda
+} {ActionNext}
+} $CLASS
+
+
+#AL AutoLogin {#UNT Alarm_Timeout;#UNT Alarm_Login;#WAIT 500
+#T+ AutoLogin_trigger;#T+ Login_Dupe_trigger
+#CON
+} $CLASS
+
+#AL AutoLogin_GrindMe {
+#WAIT 500;#T+ AutoLogin_GrindMe_trigger;#UNT Alarm_Timeout;#UNT Alarm_Login;AutoLogin
+} $CLASS
+
+#TR AutoLogin_trigger {Please enter the name} {
+Login_Unassigned;#WAIT 3000
+#ECHO Disabling Class: Grinder|AutoLogin|AutoLogin_trigger
+#T- AutoLogin_trigger;#T+ Login_Dupe_trigger
+} $CLASS
+
+#TR Login_Dupe_trigger {^Do you want to throw it out?} {#T- Login_Dupe_trigger;y} $CLASS
+
+#TR AutoLogin_GrindMe_trigger {^{"Last logon:|Reconnected."}} {
+MyProfileVars;#T- AutoLogin_GrindMe_trigger;#T- Login_Dupe_trigger
+#WAIT 2000;SysMsg AutoLogin_GrindMe_trigger GRINDME -auto;#WAIT 2000
+ActionAdd "#EXE {GRINDME -auto}"
+ActionAdd "#WALK @MyBox;wab;#WAIT 5000;ActionNext"
+#SW (%ismember(@MyBox,@ROOMS_Inns_FarHarad_ID)) {MoveMe_To_FH
+} (%ismember(@MyBox,@ROOMS_Inns_Arda_ID)) {MoveMe_To_Arda
+} (%ismember(@MyBox,@ROOMS_Inns_WestArda_ID)) {MoveMe_To_WestArda
+} {ActionNext}
+} $CLASS
+
+#T- AutoLogin_trigger;#T- AutoLogin_GrindMe_trigger;#T- Login_Dupe_trigger
+
+#CLASS 0
