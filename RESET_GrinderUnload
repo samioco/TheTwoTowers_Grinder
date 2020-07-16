@@ -1,0 +1,41 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+
+#AL GrinderUnload {
+BotOn GrinderUnload
+$item=%lower(%0)
+$action=""
+#IF (@Gear_Wagon) {$action=%concat($action,"drop all from @Mywagon;10get meat pie into @Mywagon;10get meat pie into @Mywagon;")}
+#IF ($item) {$action=%concat("do get ",$item," from @Mywagon,get ",$item," from pack,drop ",$item,";")}
+$action=%concat($action,"packout;ActionNext")
+ActionAdd $action
+#IF (%ismember(%lower(@MyPublicAlign),"demonic|shadowspawn of mordor")) {
+  ActionAdd "#WALK UDD;ActionNext"
+  } {ActionAdd "#WALK morgd;ActionNext"}
+#IF (%ismember(@MyName,"Mammoth|Seairina|Mizan")) {
+  ActionAdd "#WALK UDA;do drop all cobalt ring from cloak,drop all mushroom from cloak,drop all moss from cloak,get bota from cloak,mix bota,drop bota,drop all from pack;ActionNext"}
+MoveMe_To_Arda
+} $CLASS
+
+#AL GrinderUnload_Check {QuesterCheck GrinderUnload 1 100} $CLASS
+
+#AL GrinderUnload_MonstrousWarg {
+BotOn GrinderUnload
+ActionAdd "lead;ActionNext"
+#WALK UDD;ActionNext
+} $CLASS
+
+#AL GrinderUnload_MonstrousWarg_Check {QuesterCheck GrinderUnload_MonstrousWarg 1 100} $CLASS
+
+#AL GrinderUnload_VOR {
+ClassOn GrinderUnload
+ActionAdd "do drop moss from cloak,mix potion,drop vial of rejuvenation;ActionNext"
+#IF (%ismember(@MyName,"Mammoth|Seairina|Khairun")) {#WALK UDA
+} {#WALK UDD}
+ActionNext
+} $CLASS
+
+#AL GrinderUnload_VOR_Check {QuesterCheck GrinderUnload_VOR 1 100} $CLASS
+
+ClassOff GrinderUnload
+#CLASS 0
