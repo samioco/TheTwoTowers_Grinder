@@ -1,0 +1,30 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+#AL GrinderLoot {
+$CurRoom=%lower(@CurRoom)
+$CurMob=%lower(@CurMob)
+$numMobs=%numitems(@MobList)
+$Grinder=%lower(@Grinder)
+$MyProf=%lower(@MyProf)
+$myTrueAlign=%lower(@MyTrueAlign)
+$lootDropoffRoom=""
+$room=""
+
+ActionAdd "GrinderHealMe"
+#T- NotThere
+#IF (%lower(@MyProf)="archer") {SV}
+
+#SW (%alias(%concat($Grinder,"_Loot"))) {
+  #EXE {%concat($Grinder,"_Loot ",$numMobs)}
+} {
+  GetAllNoHands $numMobs
+}
+
+#SW (@Gear_Wagon) {#T+ GrinderWagonFull;i @MyWagon
+} (@Gear_Panniers) {#T+ GrinderPanniers_Full;i panniers
+} (@Gear_Saddlebags) {#T+ GrinderSaddlebags_Full;i saddlebags}
+
+ActionNext
+} $CLASS
+
+#CLASS 0
