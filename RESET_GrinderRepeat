@@ -1,0 +1,13 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+
+#AL GrinderRepeat {MyProfileVars
+#VAR QuestName {"GrinderRepeat"} {} VAR
+#VAR GrinderQueue_i {0} {} VAR
+#SW (@GrinderSet="GRINDME") {GrindMe
+} (@GrinderSet="GETMATS") {GetMats}
+} $CLASS
+
+#AL GrinderRepeat_Check {QuesterCheck GrinderRepeat 1 100} $CLASS
+
+#CLASS 0
