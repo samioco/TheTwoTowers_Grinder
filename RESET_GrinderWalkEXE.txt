@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderWalkEXE#CLASS 0#AL RESET_GrinderWalkEXE {#CLASS 0
 $CLASS = "Tools|Grinder|EXE"
 $Settings = "Tools|Grinder|GrinderWalk"
 
@@ -151,6 +151,9 @@ $wait=%random(10,30)
 $wait=%random(10,30)
 #ECHO Every $wait seconds: inventory
 #ALA "Inventory" *$wait {i}
+$wait=%random(10,30)
+#ECHO Every $wait seconds: score
+#ALA "Score" *$wait {score}
 } $CLASS
 
 #AL WalkerUnSetCombatCommands {
@@ -220,3 +223,5 @@ glance
 
 
 #CLASS 0
+
+} _Grinder#CLASS 0

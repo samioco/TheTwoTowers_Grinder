@@ -1,4 +1,4 @@
-#CLASS VAR
+//RESET_GrinderVariables#CLASS 0#AL RESET_GrinderVariables {#CLASS VAR
 #VAR Grinder {} {} VAR
 #VAR iRoom {0} {} VAR
 #VAR iMob {0} {} VAR
@@ -125,4 +125,4 @@
 
 
 
-#CLASS 0
+#CLASS 0} _Grinder#CLASS 0

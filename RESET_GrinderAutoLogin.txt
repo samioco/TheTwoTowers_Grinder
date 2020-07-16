@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderAutoLogin#CLASS 0#AL RESET_GrinderAutoLogin {#CLASS 0
 $CLASS = "Tools|Grinder|AutoLogin"
 
 #AL GrinderAutoLogin {
@@ -84,3 +84,4 @@ ActionAdd "#WALK @MyBox;wab;#WAIT 5000;ActionNext"
 #T- AutoLogin_trigger;#T- AutoLogin_GrindMe_trigger;#T- Login_Dupe_trigger
 
 #CLASS 0
+} _Grinder#CLASS 0

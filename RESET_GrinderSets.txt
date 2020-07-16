@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderSets#CLASS 0#AL RESET_GrinderSets {#CLASS 0
 #VAR GrinderEriadorLowLevel {} {} VAR
 #ADDI GrinderEriadorLowLevel "Freebies_WestArda" //Level 1-5
 #ADDI GrinderEriadorLowLevel "MichelDelving_DiamondDagger" //Level 1+
@@ -70,3 +70,4 @@
 #ADDI GrinderRivendell "Rivendell_AthelasSteed" //Level 7+
 #ADDI GrinderRivendell "Ettenmoors_RansackedHut"
 #CLASS 0
+} _Grinder#CLASS 0

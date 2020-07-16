@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderSettings#CLASS 0#AL RESET_GrinderSettings {#CLASS 0
 $Settings = "Tools|Grinder|Global"
 
 #UNT "GrinderNextMob"
@@ -83,7 +83,7 @@ $wait=%random(1,5)
   #ECHO Lunging Monstrous Warg!
   Mon
   kill
-}
+} 
 $markQueList="mark|fart|scoff|meh|heh|kiss"
 $mark=%item($markQueList,%random(1,%numitems($markQueList)))
 #SW (%pos("guard",$CurMob)) {$target="guard"
@@ -155,4 +155,4 @@ AimRingSave
 #T+ GrinderWagonFull
 #T+ GrinderWimpy
 
-#CLASS 0
+#CLASS 0} _Grinder#CLASS 0

@@ -1,0 +1,116 @@
+//RESET_GrinderLists#CLASS 0#AL RESET_GrinderLists {#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+
+//--- GRINDME ---//
+#AL GRINDME {
+MyProfileVars
+ActionClear
+RESET_Grinder
+GrinderQueue_INIT %1
+#VAR GrinderSet {"GRINDME"} {} VAR
+#IF (%2) {#VAR GrinderGoldHolder {%lower(%2)} {} VAR}
+GrinderShow
+GNP
+#ALA "Grinder" +2 {GrinderNextSet}
+} $CLASS
+//--- GRINDME ---//
+
+
+#AL GETMATS {
+MyProfileVars
+RESET_Grinder
+#VAR GrinderQueue {} {} VAR
+#IF (%1) {#VAR GrinderQueue_i {%1} {} VAR} {#VAR GrinderQueue_i {0} {} VAR}
+#VAR GrinderQueue {@GETMATS_LIST} {} VAR
+#ADDI GrinderQueue GrinderQueue_Repeat
+#VAR GrinderSet {"GETMATS"} {} VAR
+GrinderShow
+GNP
+#ALA "Grinder" +2 {GrinderNextSet}
+} $CLASS
+
+
+#AL GOLDME {
+#VAR GrinderSet {"GOLDME"} {} VAR
+MyProfileVars
+RESET_Grinder
+#IF (%1) {#VAR GrinderQueue_i {%1} {} VAR} {#VAR GrinderQueue_i {0} {} VAR}
+#VAR GrinderQueue {@GOLDME_LIST} {} VAR
+#ADDI GrinderQueue GrinderQueue_Repeat
+#IF (%2) {#VAR GrinderGoldHolder {%lower(%2)} {} VAR}
+GrinderShow
+GNP
+#ALA "Grinder" +2 {GrinderNextSet}
+} $CLASS
+
+#AL GrinderQueue_INIT {
+MyProfileVars
+ActionClear
+GrinderClear
+RESET_GrinderLists
+#IF (%1="-auto") {GrinderAuto_Timeout}
+#SW (%isnumber(%1)) {#VAR GrinderQueue_i {%1} {} VAR
+} (%isnumber(%2)) {#VAR GrinderQueue_i {%2} {} VAR
+} {#VAR GrinderQueue_i {0} {} VAR}
+#SW ((@MyFaction=FR) AND (@MyTrueLevel<5)) {#VAR GrinderQueue {@GrinderFR_01to04} {} VAR
+} ((@MyFaction=FR) AND (@MyTrueLevel<10)) {#VAR GrinderQueue {@GrinderFR_05to09} {} VAR
+} ((@MyFaction=FR) AND (@MyTrueLevel<15)) {#VAR GrinderQueue {@GrinderFR_10to14} {} VAR
+} ((@MyFaction=FR) AND (@MyTrueLevel>=15)) {#VAR GrinderQueue {@GrinderFR_15plus} {} VAR
+} ((@MyFaction=ER) AND (@MyTrueLevel<5)) {#VAR GrinderQueue {@GrinderER_01to04} {} VAR
+} ((@MyFaction=ER) AND (@MyTrueLevel<10)) {#VAR GrinderQueue {@GrinderER_05to09} {} VAR
+} ((@MyFaction=ER) AND (@MyTrueLevel<15)) {#VAR GrinderQueue {@GrinderER_10to14} {} VAR
+} ((%ismember(@MyFaction,"ER|servant")) AND (@MyTrueLevel>=15)) {#VAR GrinderQueue {@GrinderER_15plus} {} VAR} 
+#ADDI GrinderQueue GrinderQueue_Repeat
+} $CLASS
+
+
+#VAR GETMATS_LIST {} {} VAR
+#IF (%ismember(@MyFaction,"FR|servant")) {#ADDI GETMATS_LIST MistyMtns_Crystal}
+#IF (%ismember(@MyFaction,"FR|servant")) {#ADDI GETMATS_LIST MistyMtns_SilverQuartzRing}
+#ADDI GETMATS_LIST Harondor_Crystal
+#IF (@MyProf="rider") {#ADDI GETMATS_LIST HaradDesert_MonstrousWarg}
+#IF (@MyProf="rider") {#ADDI GETMATS_LIST Turseg_CapturingtheDeserter}
+#IF (@MyFaction="ER") {#ADDI GETMATS_LIST BunaboValley_RidingBoots}
+#IF (@MyFaction="ER") {#ADDI GETMATS_LIST Telshar_VialofRejuvenation}
+#ADDI GETMATS_LIST Harrowdale_EPmushroom
+#ADDI GETMATS_LIST Moria_StrangeMoss
+#ADDI GETMATS_LIST WhiteMtns_HurtShaman
+#ADDI GETMATS_LIST HaradDesert_PrincessTorture
+//#ADDI GETMATS_LIST GrinderBota
+//#ADDI GETMATS_LIST PetrForest_PerathsBoots
+//#ADDI GETMATS_LIST Umbar_BronzeGreaves
+//#ADDI GETMATS_LIST NH_ElegantSteelLongsword
+//#IF (@Gear_Wagon) {#ADDI GETMATS_LIST WallofMordor_DreybansRock}
+//#IF (@Gear_Wagon) {#ADDI GETMATS_LIST Galenwath_Leggings}
+#ADDI GETMATS_LIST GrinderUnload
+
+
+#VAR GOLDME_LIST {} {} VAR
+#IF (@Party) {#ADDI GOLDME_LIST Harondor_CaravanAmbush}
+#ADDI GOLDME_LIST GrinderLinhir
+#ADDI GOLDME_LIST GrinderRuneCamp
+#ADDI GOLDME_LIST Harondor_Crystal
+#IF (!@Party) {#ADDI GOLDME_LIST GrinderFlets}
+//#IF (!@Party) {#ADDI GOLDME_LIST Ithilien_SlayingtheFarmer}
+#ADDI GOLDME_LIST WallofMordor_DreybansRock
+//#IF (!@Party) {#ADDI GOLDME_LIST WallofMordor_DreybansRock}
+#ADDI GOLDME_LIST Galenwath_Leggings
+#ADDI GOLDME_LIST Harondor_VariagWarHelmet
+#ADDI GOLDME_LIST GrinderStopgap4
+#ADDI GOLDME_LIST GrinderGWSCamp
+#ADDI GOLDME_LIST DharanSar_TreasuryLooting
+#ADDI GOLDME_LIST DryLake_GhalibsChest
+#ADDI GOLDME_LIST GrinderBota
+#IF (!@Party) {#ADDI GOLDME_LIST PetrForest_PerathsBoots}
+#ADDI GOLDME_LIST Umbar_BronzeGreaves
+#ADDI GOLDME_LIST NH_ElegantSteelLongsword
+#ADDI GOLDME_LIST NH_DarkSteelHelmet
+#ADDI GOLDME_LIST Edoras_ShiningLongsword
+#ADDI GOLDME_LIST GrinderAnfidurl
+#ADDI GOLDME_LIST GrinderLOGCamp
+#ADDI GOLDME_LIST Rhov_GreatIronAxe
+#IF (!@Party) {#ADDI GOLDME_LIST GrinderThranduils}
+#ADDI GOLDME_LIST Mirkwood_OrcScoutCamp
+#ADDI GOLDME_LIST GreyMtns_ElvenShield
+
+#CLASS 0} _Grinder#CLASS 0

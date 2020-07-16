@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderLoot#CLASS 0#AL RESET_GrinderLoot {#CLASS 0
 $CLASS = "Tools|Grinder|EXE"
 #AL GrinderLoot {
 $CurRoom=%lower(@CurRoom)
@@ -13,7 +13,7 @@ $room=""
 ActionAdd "GrinderHealMe"
 #T- NotThere
 #IF (%lower(@MyProf)="archer") {SV}
-
+  
 #SW (%alias(%concat($Grinder,"_Loot"))) {
   #EXE {%concat($Grinder,"_Loot ",$numMobs)}
 } {
@@ -25,6 +25,7 @@ ActionAdd "GrinderHealMe"
 } (@Gear_Saddlebags) {#T+ GrinderSaddlebags_Full;i saddlebags}
 
 ActionNext
-} $CLASS
+} $CLASS 
 
 #CLASS 0
+} _Grinder#CLASS 0

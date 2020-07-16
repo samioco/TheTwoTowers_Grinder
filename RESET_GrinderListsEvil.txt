@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderListsEvil#CLASS 0#AL RESET_GrinderListsEvil {#CLASS 0
 #VAR GrinderER_15plus {} {} VAR
 #ADDI GrinderER_15plus Freebies_Kadar
 #ADDI GrinderER_15plus Freebies_Harondor
@@ -185,4 +185,4 @@
 #ADDI GrinderER_01to04 TRAINME
 #ADDI GrinderER_01to04 FarHarad_ERLevel5Quest
 
-#CLASS 0
+#CLASS 0} _Grinder#CLASS 0

@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderListsFreeRace#CLASS 0#AL RESET_GrinderListsFreeRace {#CLASS 0
 #VAR GrinderFR_15plus {} {} VAR
 #ADDI GrinderFR_15plus MistyMtns_Crystal
 #ADDI GrinderFR_15plus Rivendell_EshnaCrystal
@@ -184,4 +184,4 @@
 #ADDI GrinderFR_01to04 TRAINME
 #ADDI GrinderFR_01to04 Weathertop_FRLevel5Quest
 
-#CLASS 0
+#CLASS 0} _Grinder#CLASS 0

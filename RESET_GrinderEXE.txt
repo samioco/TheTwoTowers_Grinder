@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderEXE#CLASS 0#AL RESET_GrinderEXE {#CLASS 0
 $CLASS = "Tools|Grinder|EXE"
 $Settings= "Tools|Grinder|Settings"
 
@@ -83,7 +83,7 @@ $room=%lower(%item(@GrinderRooms,@iRoom))
   ActionAdd  %concat("#ECHO GrinderNextRoom: Mobs seen: @MobList;ActionNext")
   #IF (@CurRoom=%lower("LinhirFountain")) {glance}
   #IF (%begins($room,%lower("LinBat"))) {$room="LinhirWwall"}
-
+  
   //after Room conditions
   #IF (%roomid="lin_fountain") {glance}
   #IF (!%ismember($room,"linhir_wall")) {ActionNext}
@@ -137,7 +137,7 @@ SysMsg "QuestNext: Looping through GrinderQueue..."
   SysMsg Executing: $next_QuesterCheck
   #EXE {$next_QuesterCheck}
   #WAIT 100
-
+  
   //#IF (%iskey(@QuesterCheck,1)) {GrinderNEXT_CHECK_PASS} {SysMsg $next_QuesterCheck failed.}
   #IF (@QuesterCheck) {#BREAK
   } {SysMsg $next_QuesterCheck failed.
@@ -224,3 +224,5 @@ QuestComplete
 }
 } $CLASS
 #CLASS 0
+
+} _Grinder#CLASS 0

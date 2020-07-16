@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderUnload#CLASS 0#AL RESET_GrinderUnload {#CLASS 0
 $CLASS = "Tools|Grinder|EXE"
 
 #AL GrinderUnload {
@@ -38,4 +38,4 @@ ActionNext
 #AL GrinderUnload_VOR_Check {QuesterCheck GrinderUnload_VOR 1 100} $CLASS
 
 ClassOff GrinderUnload
-#CLASS 0
+#CLASS 0} _Grinder#CLASS 0

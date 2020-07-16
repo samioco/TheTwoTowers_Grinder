@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderSell#CLASS 0#AL RESET_GrinderSell {#CLASS 0
 $CLASS = "Tools|Grinder|EXE"
 $Settings= "Tools|Grinder|Settings"
 
@@ -60,3 +60,4 @@ ActionNext
 #IF (@GrinderQueue_i) {ActionAdd "gns;sall;gold;ActionNext"}
 } $CLASS
 #CLASS 0
+} _Grinder#CLASS 0

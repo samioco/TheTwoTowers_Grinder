@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderWalkSettings#CLASS 0#AL RESET_GrinderWalkSettings {#CLASS 0
 $Settings = "Tools|Grinder|GrinderWalk"
 
 #TR WalkerMissedAttack {{@Messages_MissedAttack}} {
@@ -34,7 +34,7 @@ WalkerProfAttack
     AddToEXE "kill"
     ExecuteEXE
     } $Settings
-}
+} 
 } $Settings
 
 #TR WalkerTooBusy {You are too busy to make an attack!} {
@@ -59,13 +59,6 @@ $wait=%random(1,2)
 WalkerUnSetCombatCommands
 #VAR HasDiedMob {%lower(%1)} {} VAR
 $wait = %random(3,10)
-#ECHO In $wait secs: WalkerHasDiedEXE @HasDiedMob
-#ALA "HasDiedEXE" +$wait {WalkerHasDiedEXE @HasDiedMob} $Settings
-} $Settings
-
-#TR CorpseRotsAway {The corpse completely rots away.} {
-#VAR HasDiedMob {%lower(%1)} {} VAR
-$wait = %random(3,7)
 #ECHO In $wait secs: WalkerHasDiedEXE @HasDiedMob
 #ALA "HasDiedEXE" +$wait {WalkerHasDiedEXE @HasDiedMob} $Settings
 } $Settings
@@ -114,3 +107,4 @@ WalkerUnSetCombatCommands
 #T- $Settings
 
 #CLASS 0
+} _Grinder#CLASS 0

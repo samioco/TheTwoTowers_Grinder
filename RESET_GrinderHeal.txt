@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderHeal#CLASS 0#AL RESET_GrinderHeal {#CLASS 0
 $CLASS = "Tools|Grinder|EXE"
 $Settings= "Tools|Grinder|Settings"
 
@@ -106,3 +106,4 @@ ActionNext
 
 
 #CLASS 0
+} _Grinder#CLASS 0

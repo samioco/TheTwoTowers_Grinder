@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_GrinderPlayerDetect#CLASS 0#AL RESET_GrinderPlayerDetect {#CLASS 0
 #VAR PlayerDetected {} {} VAR
 
 $CLASS = "Tools|Grinder|PlayerDetect"
@@ -37,3 +37,4 @@ $player=%proper(%word(%1,1))
 } $CLASS
 
 #CLASS 0
+} _Grinder#CLASS 0
