@@ -1,0 +1,62 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+$Settings= "Tools|Grinder|Settings"
+
+// --- Grinder Gold Check Decision --- //
+#AL GoldCheck {
+ActionAdd "gold;ActionNext"
+ActionNext
+} $CLASS
+
+#AL GoldDecision {
+#IF ((@MyGold>200) && (@GrinderGoldHolder) && (%ismember(@GrinderGoldHolder,@Party))) {
+  give all gold to @GrinderGoldHolder
+} {
+  ActionAdd "GNB;deposit all;ActionNext"
+}
+ActionNext
+} $CLASS
+// --- Grinder Gold Check Decision --- //
+
+
+
+// --- GrinderSell --- //
+#AL GrinderSell {
+#T- GrinderWagonFull
+#WAIT 2000
+#SW (%begins(%lower(@Grinder),%lower("GrinderLinhir"))) {
+  ActionAdd "Grinder GrinderLinhir"
+} (%begins(%lower(@Grinder),%lower("GrinderFlets"))) {
+  ActionClear
+  ActionAdd "GrinderFlets_EXE"
+} {
+  ActionAdd "GrinderNextMob"
+}
+#IF (%lower(@Grinder)!="Grinderflets") {ActionAdd "Depo_BuyFood"}
+#IF ((@GrinderGoldHolder) && (%ismember(@GrinderGoldHolder,@Party))) {ActionAdd "give all gold to %lower(@GrinderGoldHolder);ActionNext"} {ActionAdd "gnb;deposit all;ActionNext"}
+ActionAdd "GNS_Sell;ActionNext"
+#IF ((%begins(%lower(@Grinder),%lower("GrinderLinhir"))) && (%pos("linbat",@CurRoom))) {
+  #WALK LinSG
+  ActionNext
+}
+ActionAdd "GetAllNoHands;SysMsg Sell conditions met. Selling...;ActionNext"
+ActionNext
+} $CLASS
+
+#AL GrinderSellCondition {
+#SW (%0="stuffed full") {
+  GrinderSell
+} (@MyGold>500) {
+  #IF (@GrinderGoldHolder) {
+    give all gold to %lower(@GrinderGoldHolder)
+  } {
+    GrinderSell
+  }
+}
+} $CLASS
+// --- GrinderSell --- //
+
+#AL GrinderQueue_Sell {
+#IF (@GrinderQueue_i) {ActionAdd "gns;sall;gold;ActionNext"}
+} $CLASS
+#CLASS 0
