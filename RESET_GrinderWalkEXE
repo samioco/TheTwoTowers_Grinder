@@ -1,0 +1,222 @@
+#CLASS 0
+$CLASS = "Tools|Grinder|EXE"
+$Settings = "Tools|Grinder|GrinderWalk"
+
+#AL GrinderWalker {
+MyProfileVars
+RESET_GrinderVariables
+#VAR Grinder {%1} {} VAR
+#IF (%2) {#VAR GrinderGoldHolder {%lower(%2)} {} VAR}
+ActionAdd "QuestComplete @Grinder"
+ClassOn GrinderWalk
+WalkerSearch
+} $CLASS
+
+#AL WalkerSearch {
+StopWalk
+//#VAR WalkerMobs {@{%concat(@Grinder,"Mobs")}} {} VAR
+#VAR WalkerStartRoom {@{%concat(@Grinder,"StartRoom")}} {} VAR
+#VAR WalkerPath {%concat(@{%concat(@Grinder,"Path")},";.(StopWalk;QuestOff @Grinder;ActionAdd WalkerSell;ActionNext)")} {} VAR
+#PATH WalkPath @WalkerPath
+ActionAdd "WalkerEnableMobs;#T+ TooMuchLoot;QuestOn @Grinder;PlayerDetectOn;StartWalk"
+ActionAdd "#WALK @WalkerStartRoom;wimpy;packtag;WS;MountPrep;ActionNext"
+#IF (@trigger) {trigger off}
+HealMe
+} $CLASS
+
+
+
+#AL GrinderCheckInventory {
+#FORALL "pelt string|wagon|wain|cart|panniers|saddlebags" {
+  #IF (@{%concat("Gear_",%proper(%replace(%i," ")))}) {i %i}
+}
+} $CLASS
+
+#AL WalkerSell {
+$Grinder=%lower(@Grinder)
+StopWalk
+WalkerUnSetCombatCommands
+WalkerDisableMobs
+QuestOff @Grinder
+#T- TooMuchLoot
+SysMsg Selling...
+sss
+MountPrep
+GetAllNoHands
+ActionAdd "GNB;deposit all;ActionNext"
+ActionAdd "GNS;do untag all knife,tag knife 1;SellAll;ActionNext"
+
+#SW (%pos(%lower("BunaboValley"),$Grinder)) {
+  ActionAdd "SellAll;ActionNext"
+  ActionAdd "#WALK PeltShop;ActionNext"
+  GetAll
+} (%pos(%lower("CrimsonRiver"),$Grinder)) {
+  ActionAdd "SellAll;ActionNext"
+  ActionAdd "#WALK PeltShop;ActionNext"
+  GetAll
+} (%pos(%lower("Qata"),$Grinder)) {
+  ActionAdd "SellAll;ActionNext"
+  ActionAdd "#WALK PeltShop;ActionNext"
+  GetAll
+} (%pos(%lower("WesternForest"),$Grinder)) {
+  ActionAdd "SellAll;ActionNext"
+  ActionAdd "#WALK PeltShop;ActionNext"
+  GetAll
+} (%pos(%lower("EasternForest"),$Grinder)) {
+  ActionAdd "SellAll;ActionNext"
+  ActionAdd "#WALK PeltShop;ActionNext"
+  GetAll
+} (%pos(%lower("Shire"),$Grinder)) {
+  ActionAdd "SellAll;ActionNext"
+  ActionAdd "#WALK Arguindel;ActionNext"
+  GetAll
+} (%pos(%lower("Rivendell"),$Grinder)) {
+  ActionAdd "SellAll;ActionNext"
+  ActionAdd "#WALK Arguindel;ActionNext"
+  GetAll
+}
+ActionNext
+} $CLASS
+
+#AL WalkerEnableMobs {
+WalkerDisableMobs
+$EXE = %concat(@Grinder,"EnableMobs")
+#IF ((@Grinder) && (%alias($EXE))) {#EXE {$EXE}}
+} $CLASS
+
+#AL WalkerDisableMobs {
+$EXE = %concat(@Grinder,"DisableMobs")
+#IF ((@Grinder) && (%alias($EXE))) {#EXE {$EXE}}
+} $CLASS
+
+#AL WalkerAttack {
+//$param is Mob seen from Grinder Mob trigger
+$wait = %random(2,4)
+#IF (@Grinder && ((!%pos("corpse",%lower(%0))) && (!%pos("decayed remains",%lower(%0))))) {
+  WalkerDisableMobs
+  PauseWalk
+  #VAR CurRoom {%roomnum()} {} VAR
+  #VAR KillMob {%lower(%0)} {} VAR
+  #IF (!@Wielding) {WS}
+  $EXE = %concat(@Grinder,"_Attack")
+  #ECHO In $wait seconds: $EXE @KillMob
+  #ALA "Attack" +$wait {WalkerAttackEXE @KillMob} $Settings
+}
+} $CLASS
+
+#AL WalkerAttackEXE {
+$mob=%lower(%0)
+#SW (%pos("monkey",$mob)) {kill monkey
+} ((%pos("pack",$mob)) || (%pos("panther",$mob))) {
+  $mob="panther"
+  kill panther
+} ((%pos("family",$mob)) || (%pos("gorilla",$mob))) {
+  $mob="gorilla"
+  kill gorilla
+} (%pos("snake",$mob)) {kill snake
+} (%pos("gazelle",$mob)) {kill gazelle
+} (%pos("rabbit",$mob)) {kill rabbit
+} (%pos("boar",$mob)) {kill boar
+} (%pos("lizard",$mob)) {kill lizard
+} (%pos("coyote",$mob)) {kill coyote
+} (%pos("zebra",$mob)) {kill zebra
+} (%pos("sow",$mob)) {kill sow
+} (%pos("rhino",$mob)) {kill rhino
+} (%pos("rough log",$mob)) {kill log
+} (%pos("crocodile",$mob)) {kill crocodile
+} (%pos("olog",$mob)) {kill olog
+} (%pos("uruk",$mob)) {kill uruk
+} (%pos("orc",$mob)) {kill orc
+} (%pos("variag",$mob)) {kill variag
+} (%pos("haradrim",$mob)) {kill haradrim
+} (%pos("numenorean",$mob)) {kill numenorean
+} {kill $mob
+}
+#VAR CurMob {$mob} {} VAR
+} $CLASS
+
+#AL WalkerProfAttack {
+$wait=%random(1,5)
+#IF (%isnumber(%0)) {$wait=%number(%0)}
+#ALA "ProfAttack" +$wait {ProfAttack} $Settings
+} $CLASS
+
+#AL WalkerSetCombatCommands {
+$wait=%random(10,30)
+#ECHO Every $wait seconds: shape all
+#ALA "Shape" *$wait {shape all}
+$wait=%random(10,30)
+#ECHO Every $wait seconds: glance
+#ALA "Glance" *$wait {glance}
+$wait=%random(10,30)
+#ECHO Every $wait seconds: inventory
+#ALA "Inventory" *$wait {i}
+} $CLASS
+
+#AL WalkerUnSetCombatCommands {
+#UNT "Attack"
+#UNT "ProfAttack"
+#UNT "Shape"
+#UNT "Glance"
+#UNT "Inventory"
+#UNT "CheckInventory"
+#UNT "Bleeding"
+} $CLASS
+
+#AL WalkerHasDiedEXE {
+WalkerLoot %0
+WalkerContinue
+} $CLASS
+
+
+#AL WalkerLoot {
+PauseWalk
+$Grinder=%lower(@Grinder)
+$mob = %lower(%0)
+$animals="boar|crocodile|gazelle|gorilla|monkey|panther|rabbit|snake|sow|zebra"
+$isAnimal=false
+#VAR EXE {} {} VAR
+#FORALL $animals {#IF (%pos(%i,$mob)) {$isAnimal=true}}
+#ECHO Grinder: $Grinder, Looting corpse of: $mob
+
+#IF ($isAnimal) {Pelt} {GetAllNoHands}
+
+#SW (%pos(%lower("CrimsonRiver"),$Grinder)) {GetRidOfItem "tooth"
+} (%pos(%lower("Qata"),$Grinder)) {GetRidOfItem "heart"
+} (%pos(%lower("PelennorMumaks"),$Grinder)) {RingOff}
+
+MountPrep
+} $CLASS
+
+
+#AL WalkerContinue {
+#T+ TooMuchLoot
+#T+ WalkerYouAttack
+$multiplier=%random(5,30)
+$wait=%random(5,10)*$multiplier
+#IF (@PlayerDetected) {
+  WalkerEnableMobs
+  WalkerUnSetCombatCommands
+  ResumeWalk
+} {
+  #ECHO WalkerContinueEXE in $wait seconds...
+  #ALA "Walker" +$wait {WalkerContinueEXE} $Settings
+}
+} $CLASS
+
+#AL WalkerContinueEXE {
+MountPrep
+WalkerEnableMobs
+#IF (%ismember("WalkerSearch",@ActionQueue)) {
+  ActionNext
+} {
+  GrinderCheckInventory
+  ActionAdd "WalkerUnSetCombatCommands;MountPrep;WalkerEnableMobs;ResumeWalk"
+  #SW (@Jerky || @MeatPies) {ActionAdd "EatFood"}
+  ActionNext
+}
+glance
+} $CLASS
+
+
+#CLASS 0
